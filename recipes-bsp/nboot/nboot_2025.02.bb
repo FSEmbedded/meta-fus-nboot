@@ -8,6 +8,13 @@ PROVIDES += "nboot"
 LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=2ca5f2c35c8cc335f0a19756634782f1"
 
+FIRMWARE_ELE_IMX = "firmware-ele-imx"
+FIRMWARE_UPOWER = "firmware-upower"
+IMX_BOOT_FIRMWARE = "imx-boot-firmware-files"
+
+FUS_EXTRA_FIRMWARE:mx9-generic-bsp = " ${FIRMWARE_ELE_IMX} ${IMX_BOOT_FIRMWARE}"
+FUS_EXTRA_FIRMWARE:mx8ulp-generic-bsp = " ${FIRMWARE_ELE_IMX} ${IMX_BOOT_FIRMWARE} ${FIRMWARE_UPOWER}"
+
 include nboot.inc
 
 # Use this to build from local source
@@ -20,11 +27,4 @@ B = "${WORKDIR}/build"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "(mx8|mx93)"
-
-FIRMWARE_ELE_IMX = "firmware-ele-imx-1.3.0"
-IMX_BOOT_FIRMWARE = "imx-boot-firmware-files-8.26"
-
-FUS_EXTRA_FIRMWARE:mx9-generic-bsp = " ${FIRMWARE_ELE_IMX} ${IMX_BOOT_FIRMWARE}"
-
-
 
