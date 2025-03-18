@@ -1,5 +1,3 @@
-require recipes-bsp/firmware-imx/imx-boot-firmware-files_8.26.bb
-
 deploy_for_mx8() {
     # Cadence HDMI
     install -m 0644 ${S}/firmware/hdmi/cadence/hdmitxfw.bin ${DEPLOYDIR}/Firmware/${PN}
