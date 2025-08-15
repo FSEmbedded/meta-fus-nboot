@@ -28,20 +28,22 @@ do_compile[depends] += " \
 "
 
 do_compile:prepend() {
+	install -d ${S}/board/F+S/NXP-Firmware/${MACHINE}
+
 	for ddr_firmware in ${DDR_FIRMWARE_NAME}; do
-		cp "${DEPLOY_DIR_IMAGE}/Firmware/${IMX_BOOT_FIRMWARE}/${ddr_firmware}" "${S}/board/F+S/NXP-Firmware/${ddr_firmware}"
+		cp "${DEPLOY_DIR_IMAGE}/Firmware/${IMX_BOOT_FIRMWARE}/${ddr_firmware}" "${S}/board/F+S/NXP-Firmware/${MACHINE}/${ddr_firmware}"
 	done
 
 	if [ -n "${SECO_FIRMWARE_NAME}" ]; then
-		cp "${DEPLOY_DIR_IMAGE}/Firmware/${FIRMWARE_ELE_IMX}/${SECO_FIRMWARE_NAME}" "${S}/board/F+S/NXP-Firmware/${SECO_FIRMWARE_NAME}"
+		cp "${DEPLOY_DIR_IMAGE}/Firmware/${FIRMWARE_ELE_IMX}/${SECO_FIRMWARE_NAME}" "${S}/board/F+S/NXP-Firmware/${MACHINE}/${SECO_FIRMWARE_NAME}"
 	fi
 
 	if ${NEED_M33_IMAGE}; then
-		cp "${DEPLOY_DIR_IMAGE}/m33_image.bin" "${S}/board/F+S/NXP-Firmware/m33_image.bin"
+		cp "${DEPLOY_DIR_IMAGE}/m33_image.bin" "${S}/board/F+S/${MACHINE}/m33_image.bin"
 	fi
 
 	if ${NEED_UPOWER}; then
-		cp "${DEPLOY_DIR_IMAGE}/imx-boot-tools/upower.bin" "${S}/board/F+S/NXP-Firmware/upower.bin"
+		cp "${DEPLOY_DIR_IMAGE}/imx-boot-tools/upower.bin" "${S}/board/F+S/NXP-Firmware/${MACHINE}/upower.bin"
 	fi
 }
 
@@ -56,9 +58,10 @@ addtask deploy after do_compile
 do_deploy[depends] += " u-boot-fus:do_deploy"
 do_deploy() {
 	install -d ${DEPLOY_DIR_IMAGE}/Firmware
-	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware
+	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/
+	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${MACHINE}
 
-	install -m 0644 ${B}/board/F+S/NXP-Firmware/* ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware
+	install -m 0644 ${S}/board/F+S/NXP-Firmware/${MACHINE}/* ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${MACHINE}
 	install -m 0644 ${B}/nboot.fs ${DEPLOY_DIR_IMAGE}/Firmware/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs
 	cd ${DEPLOY_DIR_IMAGE}/Firmware/ && ln -sf nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ./nboot.fs; cd -
 	for config in ${UBOOT_CONFIG}; do
