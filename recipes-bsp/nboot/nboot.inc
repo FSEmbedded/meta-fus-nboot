@@ -45,6 +45,12 @@ do_compile:prepend() {
 	if ${NEED_UPOWER}; then
 		cp "${DEPLOY_DIR_IMAGE}/imx-boot-tools/upower.bin" "${S}/board/F+S/NXP-Firmware/${MACHINE}/upower.bin"
 	fi
+
+	#Set SCMVERSION
+	echo -n -F+S+g 1>${S}/.scmversion
+	echo -n -F+S+g 1>${B}/.scmversion
+	git -C ${S} rev-parse --short HEAD 1>> ${S}/.scmversion
+	git -C ${S} rev-parse --short HEAD 1>> ${B}/.scmversion
 }
 
 do_compile() {
