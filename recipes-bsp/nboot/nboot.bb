@@ -20,10 +20,10 @@ include nboot.inc
 # Use this to build from local source
 #SRC_URI = "git://${DL_DIR}/u-boot-fus;branch=fsimx93;protocol=file"
 SRC_URI = "git://github.com/FSEmbedded/u-boot-fus;branch=master;protocol=https"
-SRCREV = "97a04cb7185ad3426979507344b30619828581bb"
+SRCREV = "f5d5af04ad0d3045b60a0be08510becb465e9bdf"
 
 #NOTE: UPDATE PV with new releases
-PV = "2025.08"
+PV = "2025.08.1"
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
