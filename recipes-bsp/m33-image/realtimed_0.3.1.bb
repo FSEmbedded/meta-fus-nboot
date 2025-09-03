@@ -8,7 +8,7 @@ LICENSE = "CLOSED"
 M33_MACHINE:mx8ulp-nxp-bsp ?= "fsimx8ulp"
 
 SRC_URI = "${FUS_MIRROR}/${BPN}/${BPN}-${M33_MACHINE}_${PV}.bin"
-SRC_URI[sha256sum] = "a8db5f50ff763b0b8ed26263b244e7c8991d67f9ed14e9f4bae71eff61d16a78"
+SRC_URI[sha256sum] = "8bb4ca53d91bbd59067b3f745f040db7351d8ec363b5f5f983a39a621907f493"
 
 do_configure[noexec] = "1"
 
