@@ -22,14 +22,14 @@ include nboot.inc
 SRC_URI = "git://github.com/FSEmbedded/u-boot-fus;branch=${SRCBRANCH};protocol=https"
 
 SRCBRANCH:fsimx93 = "master"
-SRCBRANCH:fsimx8ulp = "uboot-fus-2024.04"
+SRCBRANCH:fsimx8ulp = "master"
 
 SRCREV:fsimx93 = "a17dcea779ef72b6f67e01ae58d0111f5cf2dcbf"
-SRCREV:fsimx8ulp = "b3bc05050bb371781b36050024cc26d1d0d49276"
+SRCREV:fsimx8ulp = "568b0fa7610ebbe4d71ee1b0449e92fee25dfabe"
 
 #NOTE: UPDATE PV with new releases
 PV:fsimx93 = "2025.10.2"
-PV:fsimx8ulp = "2025.09.1"
+PV:fsimx8ulp = "2025.11"
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
