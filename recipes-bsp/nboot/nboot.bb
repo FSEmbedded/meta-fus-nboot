@@ -14,6 +14,7 @@ IMX_BOOT_FIRMWARE = "imx-boot-firmware-files"
 
 FUS_EXTRA_FIRMWARE:mx9-generic-bsp = " ${FIRMWARE_ELE_IMX} ${IMX_BOOT_FIRMWARE}"
 FUS_EXTRA_FIRMWARE:mx8ulp-generic-bsp = " ${FIRMWARE_ELE_IMX} ${IMX_BOOT_FIRMWARE} ${FIRMWARE_UPOWER}"
+FUS_EXTRA_FIRMWARE:mx8m-generic-bsp = " ${IMX_BOOT_FIRMWARE}"
 
 include nboot.inc
 
@@ -21,15 +22,20 @@ include nboot.inc
 #SRC_URI = "git://${DL_DIR}/u-boot-fus;branch=fsimx93;protocol=file"
 SRC_URI = "git://github.com/FSEmbedded/u-boot-fus;branch=${SRCBRANCH};protocol=https"
 
-SRCBRANCH:fsimx93 = "master"
-SRCBRANCH:fsimx8ulp = "master"
+SRCBRANCH = "master"
 
 SRCREV:fsimx93 = "a17dcea779ef72b6f67e01ae58d0111f5cf2dcbf"
 SRCREV:fsimx8ulp = "568b0fa7610ebbe4d71ee1b0449e92fee25dfabe"
+#SRCREV:fsimx8mp = ""
+SRCREV:fsimx8mm = "431e86b13172fb42ee9ce37cb2d2c807fe43bd16"
+#SRCREV:fsimx8mn = ""
 
 #NOTE: UPDATE PV with new releases
 PV:fsimx93 = "2025.10.2"
 PV:fsimx8ulp = "2025.11"
+#PV:fsimx8mp = ""
+PV:fsimx8mm = "2025.07"
+#PV:fsimx8mn = ""
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"

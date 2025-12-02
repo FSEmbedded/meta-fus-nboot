@@ -14,8 +14,12 @@ EXTRA_OEMAKE:append  = ' CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${@bb.util
 EXTRA_OEMAKE:append = ' HOSTCC="${BUILD_CC} ${BUILD_CFLAGS} ${BUILD_LDFLAGS}"'
 EXTRA_OEMAKE:append = ' STAGING_INCDIR=${STAGING_INCDIR_NATIVE} STAGING_LIBDIR=${STAGING_LIBDIR_NATIVE}'
 
+NEED_ATF ?= 'false'
+NEED_OPTEE ?= 'false'
 NEED_M33_IMAGE = "${@bb.utils.contains('MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS', 'm33-image', 'true', 'false', d)}"
 NEED_UPOWER = "${@bb.utils.contains('IMX_EXTRA_FIRMWARE', 'firmware-upower', 'true', 'false', d)}"
+NEED_OPTEE:mx8m-nxp-bsp = "${@bb.utils.contains('MACHINE_FEATURES', 'optee', 'true', 'false', d)}"
+NEED_ATF:mx8m-nxp-bsp = 'true'
 
 do_configure() {
 	oe_runmake ${UBOOT_CONFIG_BASENAME}_defconfig
@@ -24,6 +28,7 @@ do_configure() {
 do_compile[depends] += " \
     ${@' '.join('%s:do_deploy' % r for r in '${FUS_EXTRA_FIRMWARE}'.split() )} \
     imx-atf:do_deploy \
+	${@bb.utils.contains('MACHINE_FEATURES', 'optee', 'optee-os:do_deploy', '', d)} \
     ${@bb.utils.contains('MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS', 'm33-image', 'm33-image:do_deploy', '', d)} \
 "
 
@@ -44,6 +49,18 @@ do_compile:prepend() {
 
 	if ${NEED_UPOWER}; then
 		cp "${DEPLOY_DIR_IMAGE}/imx-boot-tools/upower.bin" "${S}/board/F+S/NXP-Firmware/${MACHINE}/upower.bin"
+	fi
+
+	if ${NEED_ATF}; then
+		cp ${DEPLOY_DIR_IMAGE}/bl31-${ATF_PLATFORM}.bin ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl31.bin
+		if ${NEED_OPTEE}; then
+			cp ${DEPLOY_DIR_IMAGE}/bl31-${ATF_PLATFORM}.bin-optee ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl31-optee.bin
+		fi
+	fi
+
+	if ${NEED_OPTEE}; then
+		mkdir -p ${S}/${FIRMWARE_DIR}
+		cp ${DEPLOY_DIR_IMAGE}/tee.bin ${S}/${FIRMWARE_DIR}/bl32.bin
 	fi
 
 	#Set SCMVERSION
@@ -68,7 +85,7 @@ do_deploy() {
 	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${MACHINE}
 
 	install -m 0644 ${S}/board/F+S/NXP-Firmware/${MACHINE}/* ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${MACHINE}
-	install -m 0644 ${B}/nboot.fs ${DEPLOY_DIR_IMAGE}/Firmware/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs
+	install -m 0644 ${B}/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ${DEPLOY_DIR_IMAGE}/Firmware/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs
 	cd ${DEPLOY_DIR_IMAGE}/Firmware/ && ln -sf nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ./nboot.fs; cd -
 	for config in ${UBOOT_CONFIG}; do
 		cat ${DEPLOY_DIR_IMAGE}/Firmware/nboot.fs ${DEPLOY_DIR_IMAGE}/Firmware/uboot-${config}.fs > ${DEPLOY_DIR_IMAGE}/Firmware/flash_${config}.fs
