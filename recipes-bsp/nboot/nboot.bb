@@ -27,14 +27,14 @@ SRCBRANCH = "master"
 SRCREV:fsimx93 = "a17dcea779ef72b6f67e01ae58d0111f5cf2dcbf"
 SRCREV:fsimx8ulp = "568b0fa7610ebbe4d71ee1b0449e92fee25dfabe"
 #SRCREV:fsimx8mp = ""
-SRCREV:fsimx8mm = "431e86b13172fb42ee9ce37cb2d2c807fe43bd16"
+SRCREV:fsimx8mm = "2a0fe7580a78a9d594b05890bbf442d6a3ab70a9"
 #SRCREV:fsimx8mn = ""
 
 #NOTE: UPDATE PV with new releases
 PV:fsimx93 = "2025.10.2"
 PV:fsimx8ulp = "2025.11"
 #PV:fsimx8mp = ""
-PV:fsimx8mm = "2025.07"
+PV:fsimx8mm = "2025.12"
 #PV:fsimx8mn = ""
 
 S = "${WORKDIR}/git"
