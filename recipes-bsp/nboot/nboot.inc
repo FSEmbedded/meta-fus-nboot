@@ -59,8 +59,7 @@ do_compile:prepend() {
 	fi
 
 	if ${NEED_OPTEE}; then
-		mkdir -p ${S}/${FIRMWARE_DIR}
-		cp ${DEPLOY_DIR_IMAGE}/tee.bin ${S}/${FIRMWARE_DIR}/bl32.bin
+		cp ${DEPLOY_DIR_IMAGE}/tee.bin ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl32.bin
 	fi
 
 	#Set SCMVERSION
