@@ -19,21 +19,21 @@ FUS_EXTRA_FIRMWARE:mx8m-generic-bsp = " ${IMX_BOOT_FIRMWARE}"
 include nboot.inc
 
 # Use this to build from local source
-#SRC_URI = "git://${DL_DIR}/u-boot-fus;branch=fsimx93;protocol=file"
+#SRC_URI = "git://${DL_DIR}/u-boot-fus;branch=master;protocol=file"
 SRC_URI = "git://github.com/FSEmbedded/u-boot-fus;branch=${SRCBRANCH};protocol=https"
 
 SRCBRANCH = "master"
 
 SRCREV:fsimx93 = "a17dcea779ef72b6f67e01ae58d0111f5cf2dcbf"
 SRCREV:fsimx8ulp = "568b0fa7610ebbe4d71ee1b0449e92fee25dfabe"
-#SRCREV:fsimx8mp = ""
+SRCREV:fsimx8mp = "e6d1be509d72e76b27b0c62606fe2ed8e08cd6ad"
 SRCREV:fsimx8mm = "2a0fe7580a78a9d594b05890bbf442d6a3ab70a9"
 #SRCREV:fsimx8mn = ""
 
 #NOTE: UPDATE PV with new releases
 PV:fsimx93 = "2025.10.2"
 PV:fsimx8ulp = "2025.11"
-#PV:fsimx8mp = ""
+PV:fsimx8mp = "2025.12"
 PV:fsimx8mm = "2025.12"
 #PV:fsimx8mn = ""
 
