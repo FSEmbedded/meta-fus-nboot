@@ -26,7 +26,7 @@ SRCBRANCH = "master"
 
 SRCREV:fsimx93 = "a17dcea779ef72b6f67e01ae58d0111f5cf2dcbf"
 SRCREV:fsimx8ulp = "568b0fa7610ebbe4d71ee1b0449e92fee25dfabe"
-SRCREV:fsimx8mp = "e6d1be509d72e76b27b0c62606fe2ed8e08cd6ad"
+SRCREV:fsimx8mp = "76a1f712c128ef4b08a7bf05b46bc4b08633cc94"
 SRCREV:fsimx8mm = "2a0fe7580a78a9d594b05890bbf442d6a3ab70a9"
 #SRCREV:fsimx8mn = ""
 
