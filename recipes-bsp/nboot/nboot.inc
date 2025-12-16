@@ -22,8 +22,8 @@ NEED_OPTEE:mx8m-nxp-bsp = "${@bb.utils.contains('MACHINE_FEATURES', 'optee', 'tr
 NEED_ATF:mx8m-nxp-bsp = 'true'
 
 do_configure() {
-	for CONF in ${UBOOT_CONFIG}; do
-		oe_runmake O=${B}/${CONF} ${CONF}_defconfig
+	for config in ${UBOOT_CONFIG}; do
+		oe_runmake O=${B}/${config} ${config}_defconfig
 	done
 }
 
@@ -35,47 +35,45 @@ do_compile[depends] += " \
 "
 
 do_compile:prepend() {
-	for CONF in ${UBOOT_CONFIG}; do
-		install -d ${S}/board/F+S/NXP-Firmware/${MACHINE}
+	install -d ${S}/board/F+S/NXP-Firmware/${MACHINE}
 
-		for ddr_firmware in ${DDR_FIRMWARE_NAME}; do
-			cp "${DEPLOY_DIR_IMAGE}/Firmware/${IMX_BOOT_FIRMWARE}/${ddr_firmware}" "${S}/board/F+S/NXP-Firmware/${MACHINE}/${ddr_firmware}"
-		done
-
-		if [ -n "${SECO_FIRMWARE_NAME}" ]; then
-			cp "${DEPLOY_DIR_IMAGE}/Firmware/${FIRMWARE_ELE_IMX}/${SECO_FIRMWARE_NAME}" "${S}/board/F+S/NXP-Firmware/${MACHINE}/${SECO_FIRMWARE_NAME}"
-		fi
-
-		if ${NEED_M33_IMAGE}; then
-			cp "${DEPLOY_DIR_IMAGE}/m33_image.bin" "${S}/board/F+S/${MACHINE}/m33_image.bin"
-		fi
-
-		if ${NEED_UPOWER}; then
-			cp "${DEPLOY_DIR_IMAGE}/imx-boot-tools/upower.bin" "${S}/board/F+S/NXP-Firmware/${MACHINE}/upower.bin"
-		fi
-
-		if ${NEED_ATF}; then
-			cp ${DEPLOY_DIR_IMAGE}/bl31-${ATF_PLATFORM}.bin ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl31.bin
-			if ${NEED_OPTEE}; then
-				cp ${DEPLOY_DIR_IMAGE}/bl31-${ATF_PLATFORM}.bin-optee ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl31-optee.bin
-			fi
-		fi
-
-		if ${NEED_OPTEE}; then
-			cp ${DEPLOY_DIR_IMAGE}/tee.bin ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl32.bin
-		fi
-
-		#Set SCMVERSION
-		echo -n -F+S+g 1>${S}/.scmversion
-		echo -n -F+S+g 1>${B}/.scmversion
-		git -C ${S} rev-parse --short HEAD 1>> ${S}/.scmversion
-		git -C ${S} rev-parse --short HEAD 1>> ${B}/.scmversion
+	for ddr_firmware in ${DDR_FIRMWARE_NAME}; do
+		cp "${DEPLOY_DIR_IMAGE}/Firmware/${IMX_BOOT_FIRMWARE}/${ddr_firmware}" "${S}/board/F+S/NXP-Firmware/${MACHINE}/${ddr_firmware}"
 	done
+
+	if [ -n "${SECO_FIRMWARE_NAME}" ]; then
+		cp "${DEPLOY_DIR_IMAGE}/Firmware/${FIRMWARE_ELE_IMX}/${SECO_FIRMWARE_NAME}" "${S}/board/F+S/NXP-Firmware/${MACHINE}/${SECO_FIRMWARE_NAME}"
+	fi
+
+	if ${NEED_M33_IMAGE}; then
+		cp "${DEPLOY_DIR_IMAGE}/m33_image.bin" "${S}/board/F+S/${MACHINE}/m33_image.bin"
+	fi
+
+	if ${NEED_UPOWER}; then
+		cp "${DEPLOY_DIR_IMAGE}/imx-boot-tools/upower.bin" "${S}/board/F+S/NXP-Firmware/${MACHINE}/upower.bin"
+	fi
+
+	if ${NEED_ATF}; then
+		cp ${DEPLOY_DIR_IMAGE}/bl31-${ATF_PLATFORM}.bin ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl31.bin
+		if ${NEED_OPTEE}; then
+			cp ${DEPLOY_DIR_IMAGE}/bl31-${ATF_PLATFORM}.bin-optee ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl31-optee.bin
+		fi
+	fi
+
+	if ${NEED_OPTEE}; then
+		cp ${DEPLOY_DIR_IMAGE}/tee.bin ${S}/board/F+S/NXP-Firmware/${MACHINE}/bl32.bin
+	fi
+
+	#Set SCMVERSION
+	echo -n -F+S+g 1>${S}/.scmversion
+	echo -n -F+S+g 1>${B}/.scmversion
+	git -C ${S} rev-parse --short HEAD 1>> ${S}/.scmversion
+	git -C ${S} rev-parse --short HEAD 1>> ${B}/.scmversion
 }
 
 do_compile() {
-	for CONF in ${UBOOT_CONFIG}; do
-		oe_runmake O=${B}/${CONF} ${NBOOT_MAKE_TARGET}
+	for config in ${UBOOT_CONFIG}; do
+		oe_runmake O=${B}/${config} ${NBOOT_MAKE_TARGET}
 	done
 }
 
