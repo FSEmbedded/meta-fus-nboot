@@ -1,5 +1,5 @@
-#Copyright (c) 2024 F&S Elektronik Systeme GmbH
-#SPDX-License-Identifier: BSD-3-Clause
+# Copyright (C) 2024 F&S Elektronik Systeme GmbH
+# Released under the MIT license (see COPYING.MIT for the terms)
 
 SUMMARY = "F&S Realtime Daemon"
 DESCRIPTION = "A M33 Image, that povides SRTM Services during runtime"

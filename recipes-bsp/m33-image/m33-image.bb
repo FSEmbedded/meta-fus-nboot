@@ -1,5 +1,6 @@
-#Copyright (c) 2024 F&S Elektronik Systeme GmbH
-#SPDX-License-Identifier: BSD-3-Clause
+# Copyright (C) 2024 F&S Elektronik Systeme GmbH
+# Released under the MIT license (see COPYING.MIT for the terms)
+
 SUMMARY = "M33 Image Provider for NBOOT"
 DESCRIPTION = "This Recipe uses ${M33_IMAGE}.bb to build its output binary for NBOOT "
 
