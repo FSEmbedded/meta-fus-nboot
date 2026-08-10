@@ -28,8 +28,8 @@ SRCBRANCH = "master"
 PV:fsimx93 = "2026.07"
 SRCREV:fsimx93 = "51717e6e48fe61bfbfe94a52258efab674c8f95c"
 
-PV:fsimx8ulp = "2026.05.1"
-SRCREV:fsimx8ulp = "ac2657a086c81472bb5f65c511764f751791d75f"
+PV:fsimx8ulp = "2026.08"
+SRCREV:fsimx8ulp = "7178c688eaf3b7e58b7fcb58ba787733b49083d2"
 
 PV:fsimx8mp = "2026.07"
 SRCREV:fsimx8mp = "49bd2eeef5f1038eaa155ac0109b6a1d63d15f6c"
