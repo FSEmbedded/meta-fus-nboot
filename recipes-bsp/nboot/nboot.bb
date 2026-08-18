@@ -25,8 +25,8 @@ SRC_URI = "git://github.com/FSEmbedded/u-boot-fus;branch=${SRCBRANCH};protocol=h
 SRCBRANCH = "master"
 
 #NOTE: UPDATE PV with new releases
-PV:fsimx93 = "2026.07"
-SRCREV:fsimx93 = "51717e6e48fe61bfbfe94a52258efab674c8f95c"
+PV:fsimx93 = "2026.08"
+SRCREV:fsimx93 = "eda04188b4a491b4b2d8ab6ff95992e48811f75e"
 
 PV:fsimx8ulp = "2026.08"
 SRCREV:fsimx8ulp = "7178c688eaf3b7e58b7fcb58ba787733b49083d2"
