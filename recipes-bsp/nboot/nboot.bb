@@ -34,8 +34,8 @@ SRCREV:fsimx8ulp = "7178c688eaf3b7e58b7fcb58ba787733b49083d2"
 PV:fsimx8mp = "2026.07"
 SRCREV:fsimx8mp = "49bd2eeef5f1038eaa155ac0109b6a1d63d15f6c"
 
-PV:fsimx8mm = "2026.03.1"
-SRCREV:fsimx8mm = "17b0fce1e50a6c90e64dccc91d9e9ed915c7a1b0"
+PV:fsimx8mm = "2026.08"
+SRCREV:fsimx8mm = "de5732e850366f3291fab3493cfd6e93c1596eab"
 
 #SRCREV:fsimx8mn = ""
 #PV:fsimx8mn = ""
