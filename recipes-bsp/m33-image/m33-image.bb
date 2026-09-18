@@ -15,13 +15,13 @@ do_install[noexec] = "1"
 do_deploy[depends] = "${M33_IMAGE}:do_deploy"
 
 do_deploy() {
-	if [ ! -f ${DEPLOY_DIR_IMAGE}/${M33_IMAGE}.bin ]; then
-		bberror "Failed to find ${M33_IMAGE}.bin"
+	if [ ! -f ${DEPLOY_DIR_IMAGE}/${M33_IMAGE}-${MACHINE}.bin ]; then
+		bberror "Failed to find ${M33_IMAGE}-${MACHINE}.bin"
 		exit 1
 	fi
 
 	install -d ${DEPLOY_DIR_IMAGE}
-	install -m 0644 ${DEPLOY_DIR_IMAGE}/${M33_IMAGE}.bin ${DEPLOY_DIR_IMAGE}/m33_image.bin
+	install -m 0644 ${DEPLOY_DIR_IMAGE}/${M33_IMAGE}-${MACHINE}.bin ${DEPLOY_DIR_IMAGE}/m33_image-${MACHINE}.bin
 }
 
 addtask deploy after do_install before do_build
