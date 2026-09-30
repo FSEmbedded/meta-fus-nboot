@@ -44,4 +44,5 @@ S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(mx8|mx93)"
+# Only the machines with a pinned release above
+COMPATIBLE_MACHINE = "(fsimx8mm|fsimx8mp|fsimx8ulp|fsimx93)"
