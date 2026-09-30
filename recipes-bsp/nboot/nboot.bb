@@ -28,6 +28,9 @@ SRCBRANCH = "master"
 PV:fsimx93 = "2026.09"
 SRCREV:fsimx93 = "49ecaa46ba6ebd356d28f5632f505c80a2c8dd3b"
 
+PV:fsimx91 = "2026.09"
+SRCREV:fsimx91 = "54c2cfd171b7acaca2dbd04a031e3db19fc902ef"
+
 PV:fsimx8ulp = "2026.09"
 SRCREV:fsimx8ulp = "1530ebe5fb2ae69129efb7f2c31d9a1aca70d34c"
 
@@ -44,4 +47,5 @@ S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(mx8|mx93)"
+COMPATIBLE_MACHINE = "(mx8|mx91|mx93)"
+
