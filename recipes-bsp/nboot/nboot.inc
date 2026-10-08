@@ -83,15 +83,21 @@ addtask deploy after do_compile
 
 do_deploy[depends] += " u-boot-fus:do_deploy"
 do_deploy() {
-	install -d ${DEPLOY_DIR_IMAGE}/Firmware
-	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/
-	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${MACHINE}
+	install -d ${DEPLOYDIR}/Firmware
+	install -d ${DEPLOYDIR}/Firmware/NXP-Firmware/
+	install -d ${DEPLOYDIR}/Firmware/NXP-Firmware/${MACHINE}
 
-	install -m 0644 ${S}/board/F+S/NXP-Firmware/${MACHINE}/* ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${MACHINE}
-	cd ${DEPLOY_DIR_IMAGE}/Firmware/ && ln -sf nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ./nboot.fs; cd -
+	# bl31.bin, bl31-optee.bin and bl32.bin belong to the u-boot-fus deploy
+	for f in ${S}/board/F+S/NXP-Firmware/${MACHINE}/*; do
+		case "$(basename $f)" in
+		bl31.bin|bl31-optee.bin|bl32.bin) ;;
+		*) install -m 0644 $f ${DEPLOYDIR}/Firmware/NXP-Firmware/${MACHINE} ;;
+		esac
+	done
+	cd ${DEPLOYDIR}/Firmware/ && ln -sf nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ./nboot.fs; cd -
 
 	for config in ${UBOOT_CONFIG}; do
-		install -m 0644 ${B}/${config}/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ${DEPLOY_DIR_IMAGE}/Firmware/nboot-${config}-${PV}.fs
-		cat ${DEPLOY_DIR_IMAGE}/Firmware/nboot.fs ${DEPLOY_DIR_IMAGE}/Firmware/uboot-${config}.fs > ${DEPLOY_DIR_IMAGE}/Firmware/flash_${config}.fs
+		install -m 0644 ${B}/${config}/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ${DEPLOYDIR}/Firmware/nboot-${config}-${PV}.fs
+		cat ${DEPLOYDIR}/Firmware/nboot.fs ${DEPLOY_DIR_IMAGE}/Firmware/uboot-${config}.fs > ${DEPLOYDIR}/Firmware/flash_${config}.fs
 	done
 }
