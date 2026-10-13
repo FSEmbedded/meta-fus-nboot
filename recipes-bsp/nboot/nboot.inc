@@ -9,6 +9,10 @@ NBOOT_MAKE_TARGET ??= "nboot"
 inherit deploy
 inherit use-imx-security-controller-firmware
 
+inherit image_signing_fus
+SIGNING_TARGET_IMAGE = "nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs"
+SIGNING_TARGET_IMAGE_LOCATION = "${B}/${UBOOT_CONFIG_BASENAME}/"
+
 EXTRA_OEMAKE:append  = ' CROSS_COMPILE=${TARGET_PREFIX} V=1'
 EXTRA_OEMAKE:append  = ' CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', ' -fuse-ld=bfd ', '', d)} ${DEBUG_PREFIX_MAP}"'
 EXTRA_OEMAKE:append = ' HOSTCC="${BUILD_CC} ${BUILD_CFLAGS} ${BUILD_LDFLAGS}"'
