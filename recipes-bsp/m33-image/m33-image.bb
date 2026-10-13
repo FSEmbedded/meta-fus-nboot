@@ -6,6 +6,8 @@ DESCRIPTION = "This Recipe uses ${M33_IMAGE}.bb to build its output binary for N
 
 LICENSE = "CLOSED"
 
+inherit deploy
+
 do_configure[noexec] = "1"
 
 do_compile[noexec] = "1"
@@ -20,8 +22,8 @@ do_deploy() {
 		exit 1
 	fi
 
-	install -d ${DEPLOY_DIR_IMAGE}
-	install -m 0644 ${DEPLOY_DIR_IMAGE}/${M33_IMAGE}-${MACHINE}.bin ${DEPLOY_DIR_IMAGE}/m33_image-${MACHINE}.bin
+	install -d ${DEPLOYDIR}
+	install -m 0644 ${DEPLOY_DIR_IMAGE}/${M33_IMAGE}-${MACHINE}.bin ${DEPLOYDIR}/m33_image-${MACHINE}.bin
 }
 
 addtask deploy after do_install before do_build

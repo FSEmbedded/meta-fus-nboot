@@ -20,7 +20,6 @@ SRCREV = "66dfffe94b7f586a3480d73b6d364c354bab5d59"
 
 require imx-system-manager.inc
 
-
 M33_MACHINE:mx95-generic-bsp ?= "fsimx95"
 SYSTEM_MANAGER_FIRMWARE_BASENAME = "m33_image"
 PACKAGECONFIG ??= "m2"
@@ -31,6 +30,6 @@ do_deploy() {
         ${DEPLOYDIR}/${BPN}-${M33_MACHINE}_${PV}.bin
     install -m 0644 \
         ${B}/build/${SYSTEM_MANAGER_CONFIG}/${SYSTEM_MANAGER_FIRMWARE_BASENAME}.bin \
-        ${DEPLOY_DIR_IMAGE}/${BPN}-${MACHINE}.bin
+        ${DEPLOYDIR}/${BPN}-${MACHINE}.bin
 }
 

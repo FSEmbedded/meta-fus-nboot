@@ -6,8 +6,7 @@ DEPENDS:append = " python3 dtc-native bison-native lzop-native xxd-native"
 EXTRA_OEMAKE:append = " -C ${S}"
 NBOOT_MAKE_TARGET ??= "nboot"
 
-inherit deploy
-inherit use-imx-security-controller-firmware
+inherit use-imx-security-controller-firmware deploy
 
 EXTRA_OEMAKE:append  = ' CROSS_COMPILE=${TARGET_PREFIX} V=1'
 EXTRA_OEMAKE:append  = ' CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', ' -fuse-ld=bfd ', '', d)} ${DEBUG_PREFIX_MAP}"'
@@ -83,15 +82,21 @@ addtask deploy after do_compile
 
 do_deploy[depends] += " u-boot-fus:do_deploy"
 do_deploy() {
-	install -d ${DEPLOY_DIR_IMAGE}/Firmware
-	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/
-	install -d ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${UBOOT_CONFIG_BASENAME}
+	install -d ${DEPLOYDIR}/Firmware
+	install -d ${DEPLOYDIR}/Firmware/NXP-Firmware/
+	install -d ${DEPLOYDIR}/Firmware/NXP-Firmware/${UBOOT_CONFIG_BASENAME}
 
-	install -m 0644 ${S}/board/F+S/NXP-Firmware/${UBOOT_CONFIG_BASENAME}/* ${DEPLOY_DIR_IMAGE}/Firmware/NXP-Firmware/${UBOOT_CONFIG_BASENAME}
-	cd ${DEPLOY_DIR_IMAGE}/Firmware/ && ln -sf nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ./nboot.fs; cd -
+	# bl31.bin, bl31-optee.bin and bl32.bin belong to the u-boot-fus deploy
+	for f in ${S}/board/F+S/NXP-Firmware/${UBOOT_CONFIG_BASENAME}/*; do
+		case "$(basename $f)" in
+		bl31.bin|bl31-optee.bin|bl32.bin) ;;
+		*) install -m 0644 $f ${DEPLOYDIR}/Firmware/NXP-Firmware/${UBOOT_CONFIG_BASENAME} ;;
+		esac
+	done
+	cd ${DEPLOYDIR}/Firmware/ && ln -sf nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ./nboot.fs; cd -
 
 	for config in ${UBOOT_CONFIG}; do
-		install -m 0644 ${B}/${config}/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ${DEPLOY_DIR_IMAGE}/Firmware/nboot-${config}-${PV}.fs
-		cat ${DEPLOY_DIR_IMAGE}/Firmware/nboot.fs ${DEPLOY_DIR_IMAGE}/Firmware/uboot-${config}.fs > ${DEPLOY_DIR_IMAGE}/Firmware/flash_${config}.fs
+		install -m 0644 ${B}/${config}/nboot-${UBOOT_CONFIG_BASENAME}-${PV}.fs ${DEPLOYDIR}/Firmware/nboot-${config}-${PV}.fs
+		cat ${DEPLOYDIR}/Firmware/nboot.fs ${DEPLOY_DIR_IMAGE}/Firmware/uboot-${config}.fs > ${DEPLOYDIR}/Firmware/flash_${config}.fs
 	done
 }

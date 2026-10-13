@@ -5,6 +5,8 @@ SUMMARY = "F&S Realtime Daemon"
 DESCRIPTION = "A M33 Image, that povides SRTM Services during runtime"
 LICENSE = "CLOSED"
 
+inherit deploy
+
 M33_MACHINE:mx8ulp-generic-bsp ?= "fsimx8ulp"
 
 SRC_URI = "${FUS_MIRROR}/${BPN}/${BPN}-${M33_MACHINE}_${PV}.bin"
@@ -17,9 +19,9 @@ do_compile[noexec] = "1"
 do_install[noexec] = "1"
 
 do_deploy() {
-	install -d ${DEPLOY_DIR_IMAGE}
-	install -m 0644 ${WORKDIR}/${BPN}-${M33_MACHINE}_${PV}.bin ${DEPLOY_DIR_IMAGE}/${BPN}-${M33_MACHINE}_${PV}.bin
-	install -m 0644 ${WORKDIR}/${BPN}-${M33_MACHINE}_${PV}.bin ${DEPLOY_DIR_IMAGE}/${BPN}-${MACHINE}.bin
+	install -d ${DEPLOYDIR}
+	install -m 0644 ${WORKDIR}/${BPN}-${M33_MACHINE}_${PV}.bin ${DEPLOYDIR}/${BPN}-${M33_MACHINE}_${PV}.bin
+	install -m 0644 ${WORKDIR}/${BPN}-${M33_MACHINE}_${PV}.bin ${DEPLOYDIR}/${BPN}-${MACHINE}.bin
 }
 
 addtask deploy after do_install before do_build
