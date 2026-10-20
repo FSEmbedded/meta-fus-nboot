@@ -32,8 +32,11 @@ SRCBRANCH = "uboot-fus-2026.04"
 PV:fsimx93 = "2026.09"
 SRCREV:fsimx93 = "49ecaa46ba6ebd356d28f5632f505c80a2c8dd3b"
 
-PV:fsimx8ulp = "2026.08"
-SRCREV:fsimx8ulp = "7178c688eaf3b7e58b7fcb58ba787733b49083d2"
+PV:fsimx91 = "2026.10"
+SRCREV:fsimx91 = "658788554b7183783fac04d8bc49c2f3866dd256"
+
+PV:fsimx8ulp = "2026.09"
+SRCREV:fsimx8ulp = "1530ebe5fb2ae69129efb7f2c31d9a1aca70d34c"
 
 PV:fsimx8mp = "2026.07"
 SRCREV:fsimx8mp = "49bd2eeef5f1038eaa155ac0109b6a1d63d15f6c"
@@ -47,4 +50,5 @@ SRCREV:fsimx8mm = "de5732e850366f3291fab3493cfd6e93c1596eab"
 B = "${WORKDIR}/build"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(mx8|mx93|mx95)"
+COMPATIBLE_MACHINE = "(mx8|mx91|mx93|mx95)"
+
